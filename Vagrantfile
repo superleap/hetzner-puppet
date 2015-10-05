@@ -8,7 +8,15 @@ required_plugins = %w(
 required_plugins.each do |plugin|
   system "vagrant plugin install #{plugin}" unless Vagrant.has_plugin? plugin
 end
-platform = Vagrant::Util::Platform.platform
+vagrant_platform_base = Vagrant::Util::Platform.platform
+if (/cygwin|mswin|mingw|bccwin|wince|emx/ =~ vagrant_platform_base) != nil then
+    vagrant_platform = 'windows'
+elsif (/darwin/ =~ vagrant_platform_base) != nil then
+    vagrant_platform = 'mac'
+else
+    vagrant_platform = 'linux'
+end
+puts "Vagrant CLI launched from #{vagrant_platform}"
 
 # Variables
 dir = File.dirname(File.expand_path(__FILE__))
