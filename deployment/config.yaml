@@ -1,0 +1,71 @@
+---
+  vagrantfile: 
+    target: "local"
+    vm: 
+      box: "superleap/centos-67-x64"
+      box_url: "file:///Users/vortex/WebstormProjects/packer-templates/centos-6.7/centos-67-x64-parallels.box"
+      hostname: "vagrant.superleap.xyz"
+      memory: "512"
+      cpus: "1"
+      network: 
+        private_network: "192.168.99.99"
+        forwarded_port: 
+          fwport_ssh:
+            host: "9922"
+            guest: "22"
+          fwport_http:
+            host: "9980"
+            guest: "80"
+      post_up_message: ""
+      provider: 
+        virtualbox: 
+          modifyvm: 
+            natdnshostresolver1: "on"
+          showgui: "0"
+        vmware: 
+          numvcpus: 1
+        parallels: 
+          cpus: 1
+          longer-battery-life: "off"
+      provision: 
+        puppet: 
+          manifests_path: "deployment/puppet"
+          manifest_file: "site.pp"
+          module_path: "deployment/puppet/modules"
+          options: 
+            - "--verbose"
+            - "--hiera_config /vagrant/deployment/puppet/hiera.yaml"
+            - "--parser future"
+      synced_folder: 
+        superleap-xyz: 
+          source: "./development/superleap.xyz"
+          target: "/var/www/superleap.xyz"
+          sync_type: "default"
+          smb: 
+            smb_host: ""
+            smb_username: ""
+            smb_password: ""
+          rsync: 
+            args: 
+              - "--verbose"
+              - "--archive"
+              - "-z"
+            exclude: []
+            auto: "true"
+          owner: "www-data"
+          group: "www-data"
+      usable_port_range: 
+        start: 10200
+        stop: 10500
+    ssh: 
+      host: null
+      port: null
+      private_key_path: null
+      username: "vagrant"
+      guest_port: null
+      keep_alive: true
+      forward_agent: false
+      forward_x11: false
+      shell: "bash -l"
+    vagrant: 
+      host: "detect"

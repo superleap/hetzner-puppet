@@ -1,5 +1,7 @@
 ### Project specific
 
+### Vagrant template
+.vagrant/
 
 ### OSX template
 .DS_Store
