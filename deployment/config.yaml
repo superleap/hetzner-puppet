@@ -3,7 +3,7 @@
     target: "local"
     vm: 
       box: "superleap/centos-67-x64"
-      box_url: "file:///Users/vortex/WebstormProjects/packer-templates/centos-6.7/centos-67-x64-parallels.box"
+      box_url: "superleap/centos-67-x64"
       hostname: "vagrant.superleap.xyz"
       memory: "512"
       cpus: "1"
