@@ -8,6 +8,7 @@ required_plugins = %w(
 required_plugins.each do |plugin|
   system "vagrant plugin install #{plugin}" unless Vagrant.has_plugin? plugin
 end
+platform = Vagrant::Util::Platform.platform
 
 # Variables
 dir = File.dirname(File.expand_path(__FILE__))
