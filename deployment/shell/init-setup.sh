@@ -19,6 +19,8 @@ if [[ ! -f '/.leap/disabled.tty' ]]; then
     printf "Disabled tty\n"
 
     touch '/.leap/disabled.tty'
+else
+    printf "CentOS tty was already disabled, skipping\n"
 fi
 
 # Add repos: RepoForge, Epel, Remi, Webtatic
@@ -39,4 +41,6 @@ if [[ ! -f '/.leap/installed.repos' ]]; then
     printf "Finished adding repos\n"
 
     touch '/.leap/installed.repos'
+else
+    printf "Repos were added already, skipping\n"
 fi
