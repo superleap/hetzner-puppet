@@ -22,7 +22,8 @@ if [[ ! -f '/.leap/disabled.tty' ]]; then
 fi
 
 # Add repos: RepoForge, Epel, Remi, Webtatic
-#if [[ ! -f '/.leap/installed.repos' ]]; then
+# This check is redundant in terms of speed but removing it would enable
+if [[ ! -f '/.leap/installed.repos' ]]; then
     printf "RepoForge:\n"
     yum -y --nogpgcheck install http://pkgs.repoforge.org/rpmforge-release/rpmforge-release-0.5.3-1.el6.rf.x86_64.rpm
 
@@ -38,4 +39,4 @@ fi
     printf "Finished adding repos\n"
 
     touch '/.leap/installed.repos'
-#fi
+fi
