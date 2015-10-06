@@ -30,7 +30,7 @@
       provision: 
         puppet: 
           manifests_path: "deployment/puppet"
-          manifest_file: "hetzner.pp"
+          manifest_file: "hetzner"
           module_path: "deployment/puppet/module"
           options: 
             - "--verbose"
