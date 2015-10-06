@@ -4,7 +4,7 @@
     vm: 
       box: "superleap/centos-67-x64"
       box_url: "superleap/centos-67-x64"
-      hostname: "vagrant.superleap.xyz"
+      hostname: "superleap.xyz"
       memory: "512"
       cpus: "1"
       network: 
