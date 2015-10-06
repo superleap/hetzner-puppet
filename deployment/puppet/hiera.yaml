@@ -1,0 +1,10 @@
+---
+:backends:
+  - yaml
+:yaml:
+  :datadir: "/vagrant/deployment/puppet"
+:hierarchy:
+  - "node/%{::fqdn}"
+  - common
+:logger:
+  - console

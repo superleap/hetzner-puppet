@@ -11,10 +11,10 @@
         private_network: "192.168.99.99"
         forwarded_port: 
           fwport_ssh:
-            host: "9922"
+            host: "10022"
             guest: "22"
           fwport_http:
-            host: "9980"
+            host: "10080"
             guest: "80"
       post_up_message: ""
       provider: 
@@ -30,8 +30,8 @@
       provision: 
         puppet: 
           manifests_path: "deployment/puppet"
-          manifest_file: "site.pp"
-          module_path: "deployment/puppet/modules"
+          manifest_file: "hetzner.pp"
+          module_path: "deployment/puppet/module"
           options: 
             - "--verbose"
             - "--hiera_config /vagrant/deployment/puppet/hiera.yaml"

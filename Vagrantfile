@@ -231,10 +231,18 @@ Vagrant.configure('2') do |config|
       s.args = '/vagrant/deployment'
     end
 
-    # config.vm.provision 'shell' do |kg|
-    #  kg.path = 'deployment/shell/ssh-keygen.sh'
-    #  kg.args = "#{ssh_username}"
-    # end
+    config.vm.provision :puppet do |puppet|
+        puppet.facter = {
+          'fqdn'             => "#{config.vm.hostname}",
+          'ssh_username'     => "#{ssh_username}",
+          'provisioner_type' => ENV['VAGRANT_DEFAULT_PROVIDER'],
+        }
+        puppet.manifests_path = "#{data['vm']['provision']['puppet']['manifests_path']}"
+        puppet.manifest_file  = "#{data['vm']['provision']['puppet']['manifest_file']}"
+        puppet.module_path    = "#{data['vm']['provision']['puppet']['module_path']}"
 
-    # config.vm.provision :shell, :path => 'deployment/shell/install-puppet.sh'
+        if !data['vm']['provision']['puppet']['options'].empty?
+          puppet.options = data['vm']['provision']['puppet']['options']
+        end
+      end
 end

@@ -1,4 +1,5 @@
 ### Project specific
+deployment/puppet/module/
 
 ### Vagrant template
 .vagrant/
