@@ -11,14 +11,28 @@ nginx::nginx_vhosts:
       - 'index.htm'
     use_default_location: false
     www_root: '/var/www/superleap.xyz/www'
+  'cdn.superleap.xyz':
+      ensure: 'present'
+      server_name:
+        - 'cdn.superleap.xyz'
+      index_files: []
+      use_default_location: false
+      www_root: '/var/www/superleap.xyz/cdn'
 nginx::nginx_locations:
   'superleap.xyz':
     location: '/'
-    vhost: superleap.xyz
+    vhost: 'superleap.xyz'
     www_root: '/var/www/superleap.xyz/www'
     internal: false
     try_files:
     index_files:
       - 'index.html'
       - 'index.htm'
+    autoindex: 'off'
+  'cdn.superleap.xyz':
+    location: '/'
+    vhost: 'cdn.superleap.xyz'
+    www_root: '/var/www/superleap.xyz/cdn'
+    index_files: []
+    internal: false
     autoindex: 'off'
