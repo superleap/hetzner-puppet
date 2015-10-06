@@ -1,1 +1,59 @@
 ---
+nginx::nginx_vhosts:
+  'superleap.xyz':
+    ensure: 'present'
+    server_name:
+      - 'superleap.xyz'
+      - 'www.superleap.xyz'
+      - 'dev.superleap.xyz'
+    index_files:
+      - 'index.html'
+      - 'index.htm'
+    use_default_location: false
+    www_root: '/var/www/superleap.xyz/www'
+  'cdn.superleap.xyz':
+    ensure: 'present'
+    server_name:
+      - 'cdn.superleap.xyz'
+    index_files: []
+    use_default_location: false
+    www_root: '/var/www/superleap.xyz/cdn'
+  'rotaline.xyz':
+    ensure: 'present'
+    server_name:
+      - 'rotaline.xyz'
+      - 'www.rotaline.xyz'
+      - 'dev.rotaline.xyz'
+    index_files:
+      - 'index.html'
+      - 'index.htm'
+    use_default_location: false
+    www_root: '/var/www/rotaline.xyz/www'
+nginx::nginx_locations:
+  'superleap.xyz':
+    location: '/'
+    vhost: 'superleap.xyz'
+    www_root: '/var/www/superleap.xyz/www'
+    internal: false
+    try_files:
+    index_files:
+      - 'index.html'
+      - 'index.htm'
+    autoindex: 'off'
+  'cdn.superleap.xyz':
+    location: '/'
+    vhost: 'cdn.superleap.xyz'
+    www_root: '/var/www/superleap.xyz/cdn'
+    index_files: []
+    internal: false
+    autoindex: 'off'
+  'rotaline.xyz':
+    location: '/'
+    vhost: 'rotaline.xyz'
+    www_root: '/var/www/rotaline.xyz/www'
+    internal: false
+    try_files:
+    index_files:
+      - 'index.html'
+      - 'index.htm'
+    autoindex: 'off'

@@ -1,3 +1,1 @@
-node superleap.xyz {
-  include nginx
-}
+include nginx
