@@ -16,7 +16,9 @@ elsif (/darwin/ =~ host_platform_base) != nil then
 else
     host_platform = 'linux'
 end
-puts "Vagrant CLI launched from #{host_platform}"
+if ARGV[0] == 'up' then
+    puts "==> default: Vagrant CLI launched from #{host_platform}"
+end
 
 # Variables
 dir = File.dirname(File.expand_path(__FILE__))
