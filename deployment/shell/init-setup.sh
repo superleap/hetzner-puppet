@@ -4,7 +4,6 @@ VAGRANT_CORE_FOLDER=$(echo "$1")
 
 cat "${VAGRANT_CORE_FOLDER}/files/logo.txt"
 printf "\n"
-echo ""
 
 if [[ ! -d '/.leap' ]]; then
     mkdir -p '/.leap'
@@ -43,4 +42,18 @@ if [[ ! -f '/.leap/installed.repos' ]]; then
     touch '/.leap/installed.repos'
 else
     printf "Repos were added already, skipping\n"
+fi
+
+# Install puppet from puppetlabs repo
+if [[ ! -f '/.leap/installed.puppet' ]]; then
+    yum -y --nogpgcheck install https://yum.puppetlabs.com/puppetlabs-release-el-6.noarch.rpm
+    yum -y install puppet
+    puppet resource package puppet ensure=latest
+    service puppet restart
+
+    printf "Finished installing puppet\n"
+
+    touch '/.leap/installed.puppet'
+else
+    printf "Puppet installed already, skipping\n"
 fi
