@@ -51,9 +51,6 @@ if [[ ! -f '/.leap/installed.puppet' ]]; then
     service puppet restart
     printf "Finished installing puppet\n"
 
-    /opt/puppetlabs/puppet/bin/gem install r10k
-    printf "Finished installing r10k\n"
-
     if [[ -f '/root/.bashrc' ]] && ! grep -q 'export PATH=/opt/puppetlabs/bin:$PATH' /root/.bashrc; then
         echo 'export PATH=/opt/puppetlabs/bin:$PATH' >> /root/.bashrc
     fi
@@ -63,6 +60,9 @@ if [[ ! -f '/.leap/installed.puppet' ]]; then
     fi
 
     source ~/.bashrc
+
+    /opt/puppetlabs/puppet/bin/gem install r10k
+    printf "Finished installing r10k\n"
 
     touch '/.leap/installed.puppet'
 else
