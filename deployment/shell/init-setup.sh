@@ -69,11 +69,7 @@ else
     printf "Puppet installed already, skipping\n"
 fi
 
-if [[ ! -f '/.leap/installed.modules' ]]; then
-    cd "${1}/puppet"
-    /opt/puppetlabs/puppet/bin/r10k puppetfile install -v
-
-    touch '/.leap/installed.modules'
-else
-    printf "Puppet modules installed, skipping\n"
-fi
+# Always use r10k to check puppetfile modules and install them
+# No automatic dependency handling as far as I know
+cd "${1}/puppet"
+/opt/puppetlabs/puppet/bin/r10k puppetfile install -v
