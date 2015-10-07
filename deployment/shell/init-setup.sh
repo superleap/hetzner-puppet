@@ -3,7 +3,7 @@
 VAGRANT_CORE_FOLDER=$(echo "$1")
 
 cat "${VAGRANT_CORE_FOLDER}/files/logo.txt"
-printf "\n"
+printf "\n\n"
 
 if [[ ! -d '/.leap' ]]; then
     mkdir -p '/.leap'
@@ -11,7 +11,7 @@ if [[ ! -d '/.leap' ]]; then
     printf "Created base /.leap folder\n"
 fi
 
-# CentOS comes with tty enabled. Disabling it improves security
+# CentOS comes with tty enabled. Disabling it improves security, apparently
 if [[ ! -f '/.leap/disabled.tty' ]]; then
     perl -pi'~' -e 's@Defaults(\s+)requiretty@Defaults !requiretty@g' /etc/sudoers
 
@@ -23,7 +23,6 @@ else
 fi
 
 # Add repos: RepoForge, Epel, Remi, Webtatic
-# This check is redundant in terms of speed but removing it would enable
 if [[ ! -f '/.leap/installed.repos' ]]; then
     printf "RepoForge:\n"
     yum -y --nogpgcheck install http://pkgs.repoforge.org/rpmforge-release/rpmforge-release-0.5.3-1.el6.rf.x86_64.rpm
@@ -44,14 +43,26 @@ else
     printf "Repos were added already, skipping\n"
 fi
 
-# Install puppet from puppetlabs repo
+# Install puppet 4.2 from puppetlabs repo
 if [[ ! -f '/.leap/installed.puppet' ]]; then
-    yum -y --nogpgcheck install https://yum.puppetlabs.com/puppetlabs-release-el-6.noarch.rpm
-    yum -y install puppet
-    puppet resource package puppet ensure=latest
+    yum -y --nogpgcheck install https://yum.puppetlabs.com/puppetlabs-release-pc1-el-6.noarch.rpm
+    yum -y install puppet-agent
+    /opt/puppetlabs/bin/puppet resource service puppet ensure=running enable=true
     service puppet restart
-
     printf "Finished installing puppet\n"
+
+    /opt/puppetlabs/puppet/bin/gem install r10k
+    printf "Finished installing r10k\n"
+
+    if [[ -f '/root/.bashrc' ]] && ! grep -q 'export PATH=/opt/puppetlabs/bin:$PATH' /root/.bashrc; then
+        echo 'export PATH=/opt/puppetlabs/bin:$PATH' >> /root/.bashrc
+    fi
+
+    if [[ -f '/etc/profile' ]] && ! grep -q 'export PATH=/opt/puppetlabs/bin:$PATH' /etc/profile; then
+        echo 'export PATH=/opt/puppetlabs/bin:$PATH' >> /etc/profile
+    fi
+
+    source ~/.bashrc
 
     touch '/.leap/installed.puppet'
 else
