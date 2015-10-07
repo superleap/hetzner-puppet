@@ -28,14 +28,16 @@
           cpus: 1
           longer-battery-life: "off"
       provision: 
-        puppet: 
+        puppet:
+          hiera_config_path: "deployment/puppet/hiera.yaml"
+          working_directory: "/vagrant"
           manifests_path: "deployment/puppet"
-          manifest_file: "hetzner"
+          manifest_file: "manifest"
           module_path: "deployment/puppet/module"
-          options: 
+          environment: "production"
+          environments_path: "deployment/environment"
+          options:
             - "--verbose"
-            - "--hiera_config /vagrant/deployment/puppet/hiera.yaml"
-            - "--parser future"
       synced_folder: 
         superleap-xyz: 
           source: "./development/superleap.xyz"

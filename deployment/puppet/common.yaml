@@ -1,4 +1,5 @@
 ---
+# Nginx configuration
 nginx::nginx_vhosts:
   'superleap.xyz':
     ensure: 'present'
@@ -78,3 +79,5 @@ nginx::nginx_locations:
       - 'index.html'
       - 'index.htm'
     autoindex: 'off'
+
+# NodeJS configuration

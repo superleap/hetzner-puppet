@@ -239,14 +239,17 @@ Vagrant.configure('2') do |config|
           'ssh_username'     => "#{ssh_username}",
           'provisioner_type' => ENV['VAGRANT_DEFAULT_PROVIDER'],
         }
-        puppet.manifests_path = "#{data['vm']['provision']['puppet']['manifests_path']}"
-        puppet.manifest_file  = "#{data['vm']['provision']['puppet']['manifest_file']}"
-        puppet.module_path    = "#{data['vm']['provision']['puppet']['module_path']}"
+        puppet.manifests_path       = "#{data['vm']['provision']['puppet']['manifests_path']}"
+        puppet.manifest_file        = "#{data['vm']['provision']['puppet']['manifest_file']}"
+        puppet.module_path          = "#{data['vm']['provision']['puppet']['module_path']}"
+        puppet.hiera_config_path    = "#{data['vm']['provision']['puppet']['hiera_config_path']}"
+        puppet.working_directory    = "#{data['vm']['provision']['puppet']['working_directory']}"
+        puppet.environment_path     = "#{data['vm']['provision']['puppet']['environment_path']}"
 
         if !data['vm']['provision']['puppet']['options'].empty?
           puppet.options = data['vm']['provision']['puppet']['options']
         else
-          puppet.options = "--verbose --debug"
+          puppet.options = "--debug --verbose --report --show_diff --pluginsync --summarize"
         end
     end
 end
