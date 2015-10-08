@@ -1,4 +1,10 @@
 ---
+# Yum configuration
+yum_source_repo_dir: 'puppet:///modules/yum/empty'
+yum_clean_repos: false
+yum_source_dir: 'puppet:///modules/yum/empty'
+yum_source_dir_purge: false
+
 # Nginx configuration
 nginx::nginx_vhosts:
   'superleap.xyz':
@@ -123,9 +129,3 @@ php::settings:
 php::fpm::settings:
   user: "www-user"
   group: "www-data"
-
-# Yum configuration
-yum_source_repo_dir: 'puppet:///modules/yum/empty'
-yum_clean_repos: false
-yum_source_dir: 'puppet:///modules/yum/empty'
-yum_source_dir_purge: false
