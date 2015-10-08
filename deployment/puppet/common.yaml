@@ -114,6 +114,9 @@ php::extensions:
   pdo: {}
   pdo_mysql: {}
   zlib: {}
+php::fpm::settings:
+  user: "www-user"
+  group: "www-data"
 
 # Yum configuration
 yum_source_repo_dir: 'puppet:///modules/yum/empty'
