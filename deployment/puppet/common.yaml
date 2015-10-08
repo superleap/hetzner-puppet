@@ -86,7 +86,7 @@ php::manage_repos: false
 php::fpm: true
 php::dev: true
 php::composer: true
-php::pear: false
+php::pear: true
 php::phpunit: true
 php::extensions:
   apc:
