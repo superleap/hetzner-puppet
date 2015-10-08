@@ -7,26 +7,15 @@ class { 'yum::repo::epel': }
 class { 'yum::repo::remi': }
 
 # Firewall manifest
+# notify {"Test: ${firewall_rules}":} to debug ::fqdn/environment variables
 resources { 'firewall': purge => true }
 Firewall {
   before  => Class['::rhel::firewall::post'],
   require => Class['::rhel::firewall::pre'],
 }
 include ::rhel::firewall
-firewall { '100 allow openssh':
-  chain   => 'INPUT',
-  state   => ['NEW'],
-  dport   => '22',
-  proto   => 'tcp',
-  action  => 'accept',
-}
-firewall { '100 allow httpd':
-  chain   => 'INPUT',
-  state   => ['NEW'],
-  dport   => '80',
-  proto   => 'tcp',
-  action  => 'accept',
-}
+$firewall_rules = hiera('firewall_rules', false)
+create_resources('firewall', $firewall_rules)
 
 # Nginx manifest
 include ::nginx

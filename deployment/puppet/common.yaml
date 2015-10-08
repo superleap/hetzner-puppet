@@ -6,7 +6,26 @@ yum_source_dir: 'puppet:///modules/yum/empty'
 yum_source_dir_purge: false
 
 # Firewall configuration
-
+firewall_rules:
+  '100 allow openssh':
+    ensure: 'present'
+    chain: 'INPUT'
+    state:
+      - 'NEW'
+    dport:
+      - '22'
+    proto: 'tcp'
+    action: 'accept'
+  '101 allow httpd':
+    ensure: 'present'
+    chain: 'INPUT'
+    state:
+        - 'NEW'
+    dport:
+      - '80'
+      - '443'
+    proto: 'tcp'
+    action: 'accept'
 
 # Nginx configuration
 nginx::nginx_vhosts:
