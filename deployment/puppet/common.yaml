@@ -5,6 +5,9 @@ yum_clean_repos: false
 yum_source_dir: 'puppet:///modules/yum/empty'
 yum_source_dir_purge: false
 
+# Firewall configuration
+
+
 # Nginx configuration
 nginx::nginx_vhosts:
   'superleap.xyz':
