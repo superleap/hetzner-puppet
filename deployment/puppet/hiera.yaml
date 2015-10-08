@@ -6,5 +6,4 @@
 :hierarchy:
   - "node/%{::fqdn}"
   - common
-:logger:
-  - console
+:logger: console

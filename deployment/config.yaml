@@ -31,8 +31,8 @@
         puppet:
           hiera_config_path: "deployment/puppet/hiera.yaml"
           working_directory: "/vagrant"
-          manifests_path: "deployment/puppet"
-          manifest_file: "manifest"
+          manifests_path: "deployment/puppet/manifest"
+          manifest_file: "development.pp"
           module_path: "deployment/puppet/module"
           environment: "production"
           environments_path: "deployment/environment"

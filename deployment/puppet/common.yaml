@@ -80,4 +80,17 @@ nginx::nginx_locations:
       - 'index.htm'
     autoindex: 'off'
 
-# NodeJS configuration
+# Php configuration
+php::ensure: latest
+php::manage_repos: false
+php::fpm: true
+php::dev: true
+php::composer: true
+php::pear: false
+php::phpunit: true
+
+# Yum configuration
+yum_source_repo_dir: 'puppet:///modules/yum/empty'
+yum_clean_repos: false
+yum_source_dir: 'puppet:///modules/yum/empty'
+yum_source_dir_purge: false

@@ -22,27 +22,6 @@ else
     printf "CentOS tty was already disabled, skipping\n"
 fi
 
-# Add repos: RepoForge, Epel, Remi, Webtatic
-if [[ ! -f '/.leap/installed.repos' ]]; then
-    printf "RepoForge:\n"
-    yum -y --nogpgcheck install http://pkgs.repoforge.org/rpmforge-release/rpmforge-release-0.5.3-1.el6.rf.x86_64.rpm
-
-    printf "Epel:\n"
-    yum -y --nogpgcheck install https://dl.fedoraproject.org/pub/epel/epel-release-latest-6.noarch.rpm
-
-    printf "Remi:\n"
-    yum -y --nogpgcheck install http://rpms.famillecollet.com/enterprise/remi-release-6.rpm
-
-    printf "Webtatic:\n"
-    yum -y --nogpgcheck install https://mirror.webtatic.com/yum/el6/latest.rpm
-
-    printf "Finished adding repos\n"
-
-    touch '/.leap/installed.repos'
-else
-    printf "Repos were added already, skipping\n"
-fi
-
 # Install puppet 4.2 from puppetlabs repo
 if [[ ! -f '/.leap/installed.puppet' ]]; then
     yum -y --nogpgcheck install https://yum.puppetlabs.com/puppetlabs-release-pc1-el-6.noarch.rpm
@@ -61,7 +40,7 @@ if [[ ! -f '/.leap/installed.puppet' ]]; then
 
     source ~/.bashrc
 
-    /opt/puppetlabs/puppet/bin/gem install r10k
+    /opt/puppetlabs/puppet/bin/gem install r10k --source http://rubygems.org
     printf "Finished installing r10k\n"
 
     touch '/.leap/installed.puppet'
