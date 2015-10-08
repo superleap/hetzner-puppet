@@ -114,6 +114,12 @@ php::extensions:
   pdo: {}
   pdo_mysql: {}
   zlib: {}
+php::settings:
+  PHP/display_errors: 'On'
+  PHP/error_reporting: 'E_ALL & ~E_DEPRECATED & ~E_STRICT'
+  PHP/memory_limit: '512M'
+  PHP/upload_max_filesize: '10M'
+  PHP/post_max_size: '50M'
 php::fpm::settings:
   user: "www-user"
   group: "www-data"
