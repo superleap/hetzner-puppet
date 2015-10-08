@@ -88,6 +88,32 @@ php::dev: true
 php::composer: true
 php::pear: false
 php::phpunit: true
+php::extensions:
+  apc:
+    settings:
+      apc.enabled: 0
+      apc.stat: 1
+      apc.stat_ctime: 1
+      apc.shm_size: '128M'
+      apc.ttl: 3600
+      apc.user_ttl: 7200
+      apc.gc_ttl: 3600
+      apc.max_file_size: '1M'
+  curl: {}
+  gettext: {}
+  imagick:
+    settings:
+      imagick.locale_fix: true
+  intl: {}
+  json: {}
+  gnupg: {}
+  mbstring:
+    settings:
+      mbstring.substitute_character: '◬'
+  mcrypt: {}
+  pdo: {}
+  pdo_mysql: {}
+  zlib: {}
 
 # Yum configuration
 yum_source_repo_dir: 'puppet:///modules/yum/empty'
