@@ -162,12 +162,16 @@ php::fpm::settings:
   group: "www-data"
 
 # MongoDB configuration
-mongodb::globals:
-  manage_package_repo: true
-  version: '3.0'
 mongodb::server:
   ensure: 'present'
   auth: true
+mongodb_globals:
+  manage_package_repo: true
+  use_enterprise_repo: false
+  server_package_name: 'mongodb-org-unstable-server'
+  mongos_package_name: 'mongodb-org-unstable-mongos'
+  client_package_name: 'mongodb-org-unstable-shell'
+  version: '3.1.8-1.el6'
 mongodb_databases:
   'development':
     user: 'development'

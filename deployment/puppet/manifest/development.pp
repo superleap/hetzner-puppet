@@ -26,11 +26,18 @@ include ::php
 
 # MongoDB manifest
 # notify {"Test: ${mongodb_databases}":} to dump databases
-#anchor { 'mongodb::db::start': }->
-#class { 'mongodb::server::config': }->
-#class { 'mongodb::db': }->
-#anchor { 'mongodb::db::end': }
-include ::mongodb
-class { 'mongodb::client': }
+$mongodb_globals = hiera('mongodb_globals', false)
+class { '::mongodb::globals':
+  manage_package_repo => $mongodb_globals['manage_package_repo'],
+  use_enterprise_repo => $mongodb_globals['use_enterprise_repo'],
+  server_package_name => $mongodb_globals['server_package_name'],
+  mongos_package_name => $mongodb_globals['mongos_package_name'],
+  client_package_name => $mongodb_globals['client_package_name'],
+  version => $mongodb_globals['version'],
+  user => $mongodb_globals['user'],
+  group => $mongodb_globals['group'],
+}
+class { '::mongodb::server': }
+class { '::mongodb::client': }
 $mongodb_databases = hiera('mongodb_databases', false)
 create_resources('mongodb::db', $mongodb_databases)
