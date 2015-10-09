@@ -162,9 +162,6 @@ php::fpm::settings:
   group: "www-data"
 
 # MongoDB configuration
-mongodb::server:
-  ensure: 'present'
-  auth: true
 mongodb_globals:
   manage_package_repo: true
   use_enterprise_repo: false
@@ -179,3 +176,6 @@ mongodb_databases:
   'production':
     user: 'production'
     password: 'production'
+mongodb::server:
+  ensure: 'present'
+  auth: true
