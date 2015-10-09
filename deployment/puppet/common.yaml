@@ -20,10 +20,19 @@ firewall_rules:
     ensure: 'present'
     chain: 'INPUT'
     state:
-        - 'NEW'
+      - 'NEW'
     dport:
       - '80'
       - '443'
+    proto: 'tcp'
+    action: 'accept'
+  '102 allow mongod':
+    ensure: 'present'
+    chain: 'INPUT'
+    state:
+      - 'NEW'
+    dport:
+      - '27017'
     proto: 'tcp'
     action: 'accept'
 
@@ -151,3 +160,18 @@ php::settings:
 php::fpm::settings:
   user: "www-user"
   group: "www-data"
+
+# MongoDB configuration
+mongodb::globals:
+  manage_package_repo: true
+  version: '3.0'
+mongodb::server:
+  ensure: 'present'
+  auth: true
+mongodb_databases:
+  'development':
+    user: 'development'
+    password: 'development'
+  'production':
+    user: 'production'
+    password: 'production'

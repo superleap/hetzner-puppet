@@ -23,3 +23,14 @@ include ::nginx
 # Php manifest
 class { 'yum::repo::remi_php56': }
 include ::php
+
+# MongoDB manifest
+# notify {"Test: ${mongodb_databases}":} to dump databases
+#anchor { 'mongodb::db::start': }->
+#class { 'mongodb::server::config': }->
+#class { 'mongodb::db': }->
+#anchor { 'mongodb::db::end': }
+include ::mongodb
+class { 'mongodb::client': }
+$mongodb_databases = hiera('mongodb_databases', false)
+create_resources('mongodb::db', $mongodb_databases)
