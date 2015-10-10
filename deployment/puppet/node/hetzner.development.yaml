@@ -48,3 +48,13 @@ mysql::databases:
     name: 'development'
     user: 'development'
     password: 'development)O9i*U7y^T5r'
+
+nodejs::packages:
+  less:
+    ensure: "present"
+    provider: "npm"
+    require: "Class[nodejs]"
+  sass:
+    ensure: "present"
+    provider: "npm"
+    require: "Class[nodejs]"
