@@ -47,9 +47,11 @@ $mongodb_databases = hiera('mongodb::databases', false)
 create_resources('mongodb::db', $mongodb_databases)
 
 # Mysql manifest
+# notify {"Mariadb settings: ${mysql_server}":}
+# notify {"Mariadb databases: ${mysql_dbs}":}
 $mysql_server = hiera_hash('mysql::server', false)
 $mysql_dbs = hiera_hash('mysql::databases', false)
-# @TODO: sanitize hashess
+# @TODO: sanitize hashes
 if has_key($mysql_server, 'root_password') and $mysql_server['root_password'] {
   yum::managed_yumrepo { 'mariadb':
     descr          => 'MariaDB',
@@ -77,4 +79,19 @@ if has_key($mysql_server, 'root_password') and $mysql_server['root_password'] {
   if is_hash($mysql_dbs) and count($mysql_dbs) > 0 {
     create_resources('::mysql::db', $mysql_dbs)
   }
+}
+
+# NodeJS manifest
+# notify {"NodeJS settings: ${nodejs_settings}":}
+# notify {"NPM packages: ${nodejs_packages}":}
+$nodejs_settings = hiera_hash('nodejs::settings', false)
+# @TODO: sanitize hashes
+class { '::nodejs':
+  version => $nodejs_settings['version'],
+  target_dir => $nodejs_settings['target_dir'],
+  make_install => $nodejs_settings['make_install']
+}
+$nodejs_packages = hiera_hash('nodejs::packages', false)
+if is_hash($nodejs_packages) and count($nodejs_packages) > 0 {
+  create_resources(package, $nodejs_packages)
 }

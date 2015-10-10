@@ -9,8 +9,12 @@ mod 'puppetlabs/mysql', '3.6.1'
 mod 'puppetlabs/mongodb',
   :git => 'https://github.com/puppetlabs/puppetlabs-mongodb.git',
   :commit => 'f8d89eb6cc4d52a01dbc1020b76c2c562a56eb66'
+mod 'willdurand/nodejs',
+  :git => 'https://github.com/willdurand/puppet-nodejs.git',
+  :commit => '849bab42d4f6a6d210c3837ac11a82d591710fd2'
 mod 'example42/puppi', '2.1.12'
 mod 'example42/yum', '2.1.22'
+mod 'maestrodev/wget', '1.7.1'
+mod 'thias/rhel', '1.0.9'
 mod 'jfryman/nginx', '0.2.7'
 mod 'mayflower-php', '3.4.2'
-mod 'thias/rhel', '1.0.9'

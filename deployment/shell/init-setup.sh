@@ -40,8 +40,9 @@ if [[ ! -f '/.leap/installed.puppet' ]]; then
 
     source ~/.bashrc
 
-    /opt/puppetlabs/puppet/bin/gem install r10k deep_merge --source http://rubygems.org
-    printf "Finished installing r10k\n"
+    /opt/puppetlabs/puppet/bin/gem install r10k deep_merge semver --source http://rubygems.org
+    ln -s /opt/puppetlabs/puppet/bin/gem /usr/bin/gem
+    printf "Finished installing r10k, deep_merge, semver\n"
 
     touch '/.leap/installed.puppet'
 else

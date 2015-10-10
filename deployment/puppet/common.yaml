@@ -179,3 +179,26 @@ mysql::server:
     mysqld:
       bind-address: '0.0.0.0'
       pid-file: '/tmp/mysql.pid'
+
+# NodeJS configuration
+nodejs::settings:
+  version: 'v4.1.2'
+  target_dir: '/usr/bin'
+  make_install: false
+nodejs::packages:
+  gulp-cli:
+    ensure: "present"
+    provider: "npm"
+    require: "Class[nodejs]"
+  yo:
+    ensure: "present"
+    provider: "npm"
+    require: "Class[nodejs]"
+  less:
+    ensure: "present"
+    provider: "npm"
+    require: "Class[nodejs]"
+  sass:
+    ensure: "present"
+    provider: "npm"
+    require: "Class[nodejs]"
