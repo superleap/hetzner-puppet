@@ -1,9 +1,12 @@
 ---
 :backends:
-  - yaml
+  - 'yaml'
 :yaml:
-  :datadir: "/vagrant/deployment/puppet"
+  :datadir: '/vagrant/deployment/puppet'
 :hierarchy:
-  - "node/%{::fqdn}"
-  - common
-:logger: console
+  - 'node/%{::fqdn}'
+  - 'common'
+:merge_behavior: deeper
+:deep_merge_options:
+  :merge_hash_arrays: true
+:logger: 'console'

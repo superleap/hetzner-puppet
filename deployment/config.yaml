@@ -4,7 +4,7 @@
     vm: 
       box: "superleap/centos-67-x64"
       box_url: "superleap/centos-67-x64"
-      hostname: "hetzner.local"
+      hostname: "hetzner.development"
       memory: "512"
       cpus: "1"
       network: 
@@ -38,7 +38,7 @@
           environments_path: "deployment/environment"
           options:
             - "--verbose"
-      synced_folder: 
+      synced_folder:
         superleap-xyz: 
           source: "./development/superleap.xyz"
           target: "/var/www/superleap.xyz"

@@ -1,1 +1,14 @@
 ---
+mongodb::databases:
+  'production':
+    user: 'production'
+    password: 'production)O9i*U7y^T5r'
+
+mysql::databases:
+  production:
+    host: '%{::ipaddress_eth0}'
+    grant:
+      - 'ALL'
+    name: 'production'
+    user: 'production'
+    password: 'production)O9i*U7y^T5r'

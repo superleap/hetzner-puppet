@@ -6,7 +6,7 @@ yum_source_dir: 'puppet:///modules/yum/empty'
 yum_source_dir_purge: false
 
 # Firewall configuration
-firewall_rules:
+firewall::rules:
   '100 allow openssh':
     ensure: 'present'
     chain: 'INPUT'
@@ -24,15 +24,6 @@ firewall_rules:
     dport:
       - '80'
       - '443'
-    proto: 'tcp'
-    action: 'accept'
-  '102 allow mongod':
-    ensure: 'present'
-    chain: 'INPUT'
-    state:
-      - 'NEW'
-    dport:
-      - '27017'
     proto: 'tcp'
     action: 'accept'
 
@@ -163,20 +154,28 @@ php::fpm::settings:
   group: "www-data"
 
 # MongoDB configuration
-mongodb_globals:
+mongodb::globals:
   manage_package_repo: true
   use_enterprise_repo: false
   server_package_name: 'mongodb-org-unstable-server'
   mongos_package_name: 'mongodb-org-unstable-mongos'
   client_package_name: 'mongodb-org-unstable-shell'
   version: '3.1.8-1.el6'
-mongodb_databases:
-  'development':
-    user: 'development'
-    password: 'development'
-  'production':
-    user: 'production'
-    password: 'production'
 mongodb::server:
   ensure: 'present'
   auth: true
+
+# Mysql configuration
+mysql::server:
+  root_password: ')O9i*U7y^T5r'
+  server_package_name: 'MariaDB-server'
+  client_package_name: 'MariaDB-client'
+  service_name: 'mysql'
+  service_enabled: true
+  service_manage: true
+  remove_default_accounts: true
+  manage_config_file: true
+  override_options:
+    mysqld:
+      bind-address: '0.0.0.0'
+      pid-file: '/tmp/mysql.pid'

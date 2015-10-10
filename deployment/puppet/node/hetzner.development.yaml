@@ -1,16 +1,50 @@
 ---
+firewall::rules:
+  '102 allow mongod':
+    ensure: 'present'
+    chain: 'INPUT'
+    state:
+      - 'NEW'
+    dport:
+      - '27017'
+    proto: 'tcp'
+    action: 'accept'
+  '103 allow mysql remote':
+    ensure: 'present'
+    chain: 'INPUT'
+    state:
+      - 'NEW'
+    dport:
+      - '3306'
+    proto: 'tcp'
+    action: 'accept'
+
 php::extensions:
   xdebug:
-    provider: pecl
+    provider: 'pecl'
     settings:
       xdebug.default_enable: 1
       xdebug.remote_autostart: 0
       xdebug.remote_connect_back: 1
       xdebug.remote_enable: 1
-      xdebug.remote_handler: "dbgp"
-      xdebug.remote_host: "vmhost"
-      xdebug.remote_port: "9000"
+      xdebug.remote_handler: 'dbgp'
+      xdebug.remote_host: 'vmhost'
+      xdebug.remote_port: '9000'
       xdebug.auto_trace: 1
       xdebug.cli_color: 1
       xdebug.collect_params: 2
       xdebug.var_display_max_depth: 10
+
+mongodb::databases:
+  'development':
+    user: 'development'
+    password: 'development)O9i*U7y^T5r'
+
+mysql::databases:
+  development:
+    host: '192.168.%.%'
+    grant:
+      - 'ALL'
+    name: 'development'
+    user: 'development'
+    password: 'development)O9i*U7y^T5r'
