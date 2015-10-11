@@ -95,3 +95,17 @@ $nodejs_packages = hiera_hash('nodejs::packages', false)
 if is_hash($nodejs_packages) and count($nodejs_packages) > 0 {
   create_resources(package, $nodejs_packages)
 }
+
+# Redis manifest
+# notify {"Redis settings: ${redis_settings}":}
+$redis_settings = hiera_hash('redis::settings', false)
+# @TODO: sanitize hashes
+class { '::redis':
+  bind           => $redis_settings['bind'],
+  port           => $redis_settings['port'],
+  service_group  => $redis_settings['service_group'],
+  service_user   => $redis_settings['service_user'],
+  manage_repo    => $redis_settings['manage_repo'],
+  service_enable => $redis_settings['service_enable'],
+  config_owner   => $redis_settings['config_owner']
+}

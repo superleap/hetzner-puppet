@@ -18,6 +18,15 @@ firewall::rules:
       - '3306'
     proto: 'tcp'
     action: 'accept'
+  '104 allow redis remote':
+    ensure: 'present'
+    chain: 'INPUT'
+    state:
+      - 'NEW'
+    dport:
+      - '6379'
+    proto: 'tcp'
+    action: 'accept'
 
 php::extensions:
   xdebug:
