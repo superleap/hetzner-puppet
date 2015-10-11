@@ -190,6 +190,10 @@ nodejs::packages:
     ensure: "present"
     provider: "npm"
     require: "Class[nodejs]"
+  bower:
+    ensure: "present"
+    provider: "npm"
+    require: "Class[nodejs]"
 
 # Redis configuration
 redis::settings:
