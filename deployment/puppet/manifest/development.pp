@@ -120,3 +120,6 @@ class { '::golang': }
 # hiera_hash: rabbitmq::parameter
 class { "::erlang": }
 class { "::rabbitmq": }
+
+# Docker manifest
+class { '::docker': }
