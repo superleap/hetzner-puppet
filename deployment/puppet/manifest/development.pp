@@ -16,7 +16,6 @@ Firewall {
 }
 include ::rhel::firewall
 $firewall_rules = hiera_hash('firewall::rules', false)
-# @TODO: sanitize hashes
 create_resources('firewall', $firewall_rules)
 
 # Nginx manifest
@@ -30,7 +29,6 @@ include ::php
 # notify {"Mongo databases: ${mongodb_databases}":}
 # notify {"Mongo globals: ${mongodb_globals}":}
 $mongodb_globals = hiera_hash('mongodb::globals', false)
-# @TODO: sanitize hashes
 class { '::mongodb::globals':
   manage_package_repo => $mongodb_globals['manage_package_repo'],
   use_enterprise_repo => $mongodb_globals['use_enterprise_repo'],
@@ -44,7 +42,9 @@ class { '::mongodb::globals':
 class { '::mongodb::server': } ->
 class { '::mongodb::client': }
 $mongodb_databases = hiera('mongodb::databases', false)
-create_resources('mongodb::db', $mongodb_databases)
+if is_hash($mongodb_databases) and count($mongodb_databases) > 0 {
+  create_resources('mongodb::db', $mongodb_databases)
+}
 
 # Mysql manifest
 # notify {"Mariadb settings: ${mysql_server}":}
@@ -111,5 +111,8 @@ class { '::redis':
 }
 
 # Go manifest
-# @TODO: fix fork and pull request
+# @TODO: fix fork and pull request improved module
 class { '::golang': }
+
+# Erlang/RabbitMQ manifest
+class { "::erlang": }

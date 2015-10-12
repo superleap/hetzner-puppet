@@ -210,3 +210,7 @@ golang::version: '1.5.1'
 golang::download_dir: '/usr/local/src'
 golang::download_url: 'https://storage.googleapis.com/golang/go1.5.1.linux-amd64.tar.gz'
 golang::base_dir: '/usr/local/go'
+
+# Erlang configuration
+erlang::version: 'latest'
+erlang::package: 'erlang'
