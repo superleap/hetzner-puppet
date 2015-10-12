@@ -14,8 +14,8 @@ mod 'willdurand/nodejs',
   :git => 'https://github.com/willdurand/puppet-nodejs.git',
   :commit => '849bab42d4f6a6d210c3837ac11a82d591710fd2'
 mod 'dcoxall/golang',
-  :git => 'https://github.com/imdario/puppet-go.git',
-  :commit => '41a77cc7c54ccb64516e685d210fa9f13e675bee'
+  :git => 'https://github.com/vrtxf/puppet-go.git',
+  :commit => 'df838a2f266ef27f002d35306682c76fb4394382'
 mod 'example42/puppi', '2.1.12'
 mod 'example42/yum', '2.1.22'
 mod 'maestrodev/wget', '1.7.1'
