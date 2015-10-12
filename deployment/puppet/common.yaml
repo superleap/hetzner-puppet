@@ -198,7 +198,7 @@ nodejs::packages:
 # Redis configuration
 redis::settings:
   bind: '0.0.0.0'
-  port: 6379
+  port: '6379'
   service_group: 'redis'
   service_user: 'redis'
   manage_repo: false
@@ -214,3 +214,6 @@ golang::base_dir: '/usr/local/go'
 # Erlang configuration
 erlang::version: 'latest'
 erlang::package: 'erlang'
+
+# RabbitMQ configuration
+rabbitmq::port: '5672'

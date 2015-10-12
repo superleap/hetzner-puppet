@@ -111,8 +111,12 @@ class { '::redis':
 }
 
 # Go manifest
+# hiera_hash: golang::parameter
 # @TODO: fix fork and pull request improved module
 class { '::golang': }
 
 # Erlang/RabbitMQ manifest
+# hiera_hash: erlang::parameter
+# hiera_hash: rabbitmq::parameter
 class { "::erlang": }
+class { "::rabbitmq": }

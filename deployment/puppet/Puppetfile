@@ -6,6 +6,7 @@ mod 'puppetlabs-stdlib', '4.9.0'
 mod 'puppetlabs/inifile', '1.4.2'
 mod 'puppetlabs/firewall', '1.7.1'
 mod 'puppetlabs/mysql', '3.6.1'
+mod 'puppetlabs/rabbitmq', '5.3.1'
 mod 'puppetlabs/mongodb',
   :git => 'https://github.com/puppetlabs/puppetlabs-mongodb.git',
   :commit => 'f8d89eb6cc4d52a01dbc1020b76c2c562a56eb66'

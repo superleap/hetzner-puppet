@@ -27,6 +27,15 @@ firewall::rules:
       - '6379'
     proto: 'tcp'
     action: 'accept'
+  '105 allow rabbitmq remote':
+    ensure: 'present'
+    chain: 'INPUT'
+    state:
+      - 'NEW'
+    dport:
+      - '5672'
+    proto: 'tcp'
+    action: 'accept'
 
 php::extensions:
   xdebug:
@@ -67,3 +76,6 @@ nodejs::packages:
     ensure: "present"
     provider: "npm"
     require: "Class[nodejs]"
+
+rabbitmq::service_manage: true
+rabbitmq::admin_enable: true
