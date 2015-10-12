@@ -109,3 +109,7 @@ class { '::redis':
   service_enable => $redis_settings['service_enable'],
   config_owner   => $redis_settings['config_owner']
 }
+
+# Go manifest
+# @TODO: fix fork and pull request
+class { '::golang': }
