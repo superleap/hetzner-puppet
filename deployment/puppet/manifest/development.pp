@@ -122,4 +122,9 @@ class { "::erlang": }
 class { "::rabbitmq": }
 
 # Docker manifest
+group { 'docker':
+  ensure => present
+} ->
 class { '::docker': }
+$docker_images = hiera_hash('docker::images')
+create_resources(docker::image, $docker_images)

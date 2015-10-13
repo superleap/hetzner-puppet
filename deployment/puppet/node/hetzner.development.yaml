@@ -79,3 +79,6 @@ nodejs::packages:
 
 rabbitmq::service_manage: true
 rabbitmq::admin_enable: true
+
+docker::docker_users:
+  - 'vagrant'

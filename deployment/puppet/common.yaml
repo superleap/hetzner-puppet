@@ -220,3 +220,11 @@ rabbitmq::port: '5672'
 
 # Docker configuration
 docker::manage_epel: false
+docker::version: '1.7.1'
+docker::docker_group: 'docker'
+docker::docker_group_default: 'docker'
+docker::docker_users:
+  - 'www-data'
+docker::images:
+  'docker/whalesay':
+    ensure: present
