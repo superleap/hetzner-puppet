@@ -1,3 +1,10 @@
+# Implement before/after stages
+stage { 'first':
+  before => Stage['main'],
+}
+stage { 'last': }
+Stage['main'] -> Stage['last']
+
 # Execute yum repos before any package
 Yumrepo <| |> -> Package <| |>
 
@@ -35,9 +42,9 @@ class { '::mongodb::globals':
   server_package_name => $mongodb_globals['server_package_name'],
   mongos_package_name => $mongodb_globals['mongos_package_name'],
   client_package_name => $mongodb_globals['client_package_name'],
-  version => $mongodb_globals['version'],
-  user => $mongodb_globals['user'],
-  group => $mongodb_globals['group'],
+  version             => $mongodb_globals['version'],
+  user                => $mongodb_globals['user'],
+  group               => $mongodb_globals['group'],
 } ->
 class { '::mongodb::server': } ->
 class { '::mongodb::client': }
@@ -87,8 +94,8 @@ if has_key($mysql_server, 'root_password') and $mysql_server['root_password'] {
 $nodejs_settings = hiera_hash('nodejs::settings', false)
 # @TODO: sanitize hashes
 class { '::nodejs':
-  version => $nodejs_settings['version'],
-  target_dir => $nodejs_settings['target_dir'],
+  version      => $nodejs_settings['version'],
+  target_dir   => $nodejs_settings['target_dir'],
   make_install => $nodejs_settings['make_install']
 }
 $nodejs_packages = hiera_hash('nodejs::packages', false)
@@ -128,3 +135,16 @@ group { 'docker':
 class { '::docker': }
 $docker_images = hiera_hash('docker::images')
 create_resources(docker::image, $docker_images)
+
+# end of execution message
+#class motd {
+#  exec { 'x':
+#    command   => "docker run docker/whalesay cowsay The person who says it cannot be done should not interrupt the person who is doing it",
+#    path      => "/usr/bin:/usr/local/bin:/bin",
+#    logoutput => true
+#  }
+#}
+#
+#class { '::motd':
+#  stage => last
+#}

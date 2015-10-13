@@ -252,4 +252,9 @@ Vagrant.configure('2') do |config|
           puppet.options = "--debug --verbose --report --show_diff --pluginsync --summarize"
         end
     end
+
+    config.vm.provision 'shell' do |s|
+      s.path = 'deployment/shell/final-setup.sh'
+      s.args = '/vagrant/deployment'
+    end
 end
