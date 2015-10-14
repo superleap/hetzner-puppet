@@ -9,28 +9,38 @@ Stage['main'] -> Stage['last']
 Yumrepo <| |> -> Package <| |>
 
 # Yum manifest - full hiera support
-include ::yum
-class { 'yum::repo::repoforge': }
-class { 'yum::repo::epel': }
-class { 'yum::repo::remi': }
+# hiera_hash: yum_*
+class { '::yum': } ->
+class { '::yum::repo::repoforge': } ->
+class { '::yum::repo::epel': } ->
+class { '::yum::repo::remi': }
 
-# Firewall manifest - partial hiera support
+
+# Firewall manifest
 # notify {"Firewall rules: ${firewall_rules}":}
 resources { 'firewall': purge => true }
 Firewall {
   before  => Class['::rhel::firewall::post'],
   require => Class['::rhel::firewall::pre'],
 }
-include ::rhel::firewall
+class { '::rhel::firewall': }
+
 $firewall_rules = hiera_hash('firewall::rules', false)
-create_resources('firewall', $firewall_rules)
+if is_hash($firewall_rules) and count($firewall_rules) > 0 {
+  create_resources('firewall', $firewall_rules)
+}
+
 
 # Nginx manifest
-include ::nginx
+# hiera_hash: nginx::nginx_vhosts
+# hiera_hash: nginx::nginx_locations
+class { '::nginx': }
 
-# Php manifest - full hiera support
-class { 'yum::repo::remi_php56': }
-include ::php
+
+# Php manifest
+class { '::yum::repo::remi_php56': } ->
+class { '::php': }
+
 
 # MongoDB manifest - partial hiera support
 # notify {"Mongo databases: ${mongodb_databases}":}
@@ -39,6 +49,7 @@ $mongodb_globals = hiera_hash('mongodb::globals', false)
 class { '::mongodb::globals':
   manage_package_repo => $mongodb_globals['manage_package_repo'],
   use_enterprise_repo => $mongodb_globals['use_enterprise_repo'],
+  repo_location       => $mongodb_globals['repo_location'],
   server_package_name => $mongodb_globals['server_package_name'],
   mongos_package_name => $mongodb_globals['mongos_package_name'],
   client_package_name => $mongodb_globals['client_package_name'],
@@ -48,10 +59,12 @@ class { '::mongodb::globals':
 } ->
 class { '::mongodb::server': } ->
 class { '::mongodb::client': }
+
 $mongodb_databases = hiera('mongodb::databases', false)
 if is_hash($mongodb_databases) and count($mongodb_databases) > 0 {
   create_resources('mongodb::db', $mongodb_databases)
 }
+
 
 # Mysql manifest
 # notify {"Mariadb settings: ${mysql_server}":}
@@ -88,25 +101,27 @@ if has_key($mysql_server, 'root_password') and $mysql_server['root_password'] {
   }
 }
 
+
 # NodeJS manifest
 # notify {"NodeJS settings: ${nodejs_settings}":}
 # notify {"NPM packages: ${nodejs_packages}":}
 $nodejs_settings = hiera_hash('nodejs::settings', false)
-# @TODO: sanitize hashes
 class { '::nodejs':
   version      => $nodejs_settings['version'],
   target_dir   => $nodejs_settings['target_dir'],
   make_install => $nodejs_settings['make_install']
 }
+
 $nodejs_packages = hiera_hash('nodejs::packages', false)
 if is_hash($nodejs_packages) and count($nodejs_packages) > 0 {
   create_resources(package, $nodejs_packages)
 }
 
+
 # Redis manifest
 # notify {"Redis settings: ${redis_settings}":}
-$redis_settings = hiera_hash('redis::settings', false)
 # @TODO: sanitize hashes
+$redis_settings = hiera_hash('redis::settings', false)
 class { '::redis':
   bind           => $redis_settings['bind'],
   port           => $redis_settings['port'],
@@ -117,34 +132,28 @@ class { '::redis':
   config_owner   => $redis_settings['config_owner']
 }
 
+
 # Go manifest
 # hiera_hash: golang::parameter
-# @TODO: fix fork and pull request improved module
 class { '::golang': }
+
 
 # Erlang/RabbitMQ manifest
 # hiera_hash: erlang::parameter
 # hiera_hash: rabbitmq::parameter
-class { "::erlang": }
+class { "::erlang": } ->
 class { "::rabbitmq": }
 
+
 # Docker manifest
+# hiera_hash: erlang::parameter
+# notify {"Docker images: ${docker_images}":}
 group { 'docker':
   ensure => present
 } ->
 class { '::docker': }
-$docker_images = hiera_hash('docker::images')
-create_resources(docker::image, $docker_images)
 
-# end of execution message
-#class motd {
-#  exec { 'x':
-#    command   => "docker run docker/whalesay cowsay The person who says it cannot be done should not interrupt the person who is doing it",
-#    path      => "/usr/bin:/usr/local/bin:/bin",
-#    logoutput => true
-#  }
-#}
-#
-#class { '::motd':
-#  stage => last
-#}
+$docker_images = hiera_hash('docker::images')
+if is_hash($docker_images) and count($docker_images) > 0 {
+  create_resources(docker::image, $docker_images)
+}
