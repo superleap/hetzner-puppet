@@ -1,7 +1,10 @@
 #!/usr/bin/env bash
 
 VAGRANT_CORE_FOLDER=$(echo "$1")
+VAGRANT_DOT_FILES_FOLDER="${VAGRANT_CORE_FOLDER}/files/dot"
+SSH_USERNAME=$(echo "$2")
 
+# Print awesome organization logo
 cat "${VAGRANT_CORE_FOLDER}/files/logo.txt"
 printf "\n\n"
 
@@ -10,6 +13,19 @@ if [[ ! -d '/.leap' ]]; then
 
     printf "Created base /.leap folder\n"
 fi
+
+# Dot files
+if [[ -d "${VAGRANT_DOT_FILES_FOLDER}" ]]; then
+    cp -r ${VAGRANT_DOT_FILES_FOLDER}/.[a-zA-Z0-9]* /home/${SSH_USERNAME}
+    chown -R ${SSH_USERNAME} /home/${SSH_USERNAME}/.[a-zA-Z0-9]*
+
+    printf "Installed dot files\n"
+
+    touch '/.leap/installed.dot'
+else
+    printf "The dot files folder doesn't exist, nothing to install\n"
+fi
+
 
 # CentOS comes with tty enabled. Disabling it improves security, apparently
 if [[ ! -f '/.leap/disabled.tty' ]]; then

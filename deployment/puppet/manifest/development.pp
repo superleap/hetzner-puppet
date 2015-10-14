@@ -5,8 +5,10 @@ stage { 'first':
 stage { 'last': }
 Stage['main'] -> Stage['last']
 
+
 # Execute yum repos before any package
 Yumrepo <| |> -> Package <| |>
+
 
 # Yum manifest - full hiera support
 # hiera_hash: yum_*

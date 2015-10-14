@@ -230,7 +230,10 @@ Vagrant.configure('2') do |config|
 
     config.vm.provision 'shell' do |s|
       s.path = 'deployment/shell/init-setup.sh'
-      s.args = '/vagrant/deployment'
+      s.args = [
+        '/vagrant/deployment',
+        "#{ssh_username}"
+      ]
     end
 
     config.vm.provision :puppet do |puppet|
