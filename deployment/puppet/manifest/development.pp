@@ -159,3 +159,4 @@ $docker_images = hiera_hash('docker::images')
 if is_hash($docker_images) and count($docker_images) > 0 {
   create_resources(docker::image, $docker_images)
 }
+
