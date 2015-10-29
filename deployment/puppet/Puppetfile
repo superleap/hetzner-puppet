@@ -17,10 +17,10 @@ mod 'dcoxall/golang',
   :git => 'https://github.com/vrtxf/puppet-go.git',
   :commit => 'df838a2f266ef27f002d35306682c76fb4394382'
 mod 'example42/puppi', '2.1.12'
-mod 'example42/yum', '2.1.23'
+mod 'example42/yum', '2.1.25'
 mod 'maestrodev/wget', '1.7.1'
 mod 'nanliu/staging', '1.0.3'
-mod 'thias/rhel', '1.0.9'
+mod 'thias/rhel', '1.0.10'
 mod 'Envek/erlang', '0.1.0'
 mod 'jfryman/nginx', '0.2.7'
 mod 'mayflower-php', '3.4.2'
