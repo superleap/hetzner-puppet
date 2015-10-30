@@ -157,11 +157,11 @@ php::fpm::settings:
 mongodb::globals:
   manage_package_repo: true
   use_enterprise_repo: false
-  repo_location: 'http://repo.mongodb.org/yum/redhat/6/mongodb-org/stable/x86_64/'
+  repo_location: 'http://repo.mongodb.org/yum/redhat/7/mongodb-org/stable/x86_64/'
   server_package_name: 'mongodb-org-server'
   mongos_package_name: 'mongodb-org-mongos'
   client_package_name: 'mongodb-org-shell'
-  version: '3.0.7-1.el6'
+  version: '3.0.7-1.el7'
 mongodb::server:
   ensure: 'present'
   auth: true

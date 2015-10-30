@@ -75,6 +75,9 @@ $mysql_server = hiera_hash('mysql::server', false)
 $mysql_dbs = hiera_hash('mysql::databases', false)
 # @TODO: sanitize hashes
 if has_key($mysql_server, 'root_password') and $mysql_server['root_password'] {
+  file { "/var/log/mariadb":
+    ensure => "directory"
+  } ->
   yum::managed_yumrepo { 'mariadb':
     descr          => 'MariaDB',
     baseurl        => 'http://yum.mariadb.org/10.1/centos7-amd64',
@@ -83,9 +86,6 @@ if has_key($mysql_server, 'root_password') and $mysql_server['root_password'] {
     gpgcheck       => 1,
     gpgkey         => 'https://yum.mariadb.org/RPM-GPG-KEY-MariaDB',
     priority       => 2,
-  } ->
-  file { "/var/log/mariadb":
-    ensure => "directory"
   } ->
   class { '::mysql::server':
     service_name            => $mysql_server['service_name'],
