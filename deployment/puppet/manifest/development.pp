@@ -166,5 +166,5 @@ if is_hash($docker_images) and count($docker_images) > 0 {
 
 # Teamspeak manifest
 class { 'teamspeak':
-  version => '3.0.11.3',
+  version => '3.0.11.4',
 }
