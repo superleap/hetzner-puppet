@@ -163,3 +163,8 @@ if is_hash($docker_images) and count($docker_images) > 0 {
   create_resources(docker::image, $docker_images)
 }
 
+
+# Teamspeak manifest
+class { 'teamspeak':
+  version => '3.0.11.3',
+}

@@ -26,6 +26,25 @@ firewall::rules:
       - '443'
     proto: 'tcp'
     action: 'accept'
+  '106 allow teamspeak udp':
+    ensure: 'present'
+    chain: 'INPUT'
+    state:
+      - 'NEW'
+    dport:
+      - '9987'
+    proto: 'udp'
+    action: 'accept'
+  '106 allow teamspeak tcp':
+    ensure: 'present'
+    chain: 'INPUT'
+    state:
+      - 'NEW'
+    dport:
+      - '10011'
+      - '30033'
+    proto: 'tcp'
+    action: 'accept'
 
 # Nginx configuration
 nginx::nginx_vhosts:
