@@ -4,6 +4,7 @@ require 'yaml'
 required_plugins = %w(
     vagrant-proxyconf
     vagrant-share
+    vagrant-parallels
 )
 required_plugins.each do |plugin|
   system "vagrant plugin install #{plugin}" unless Vagrant.has_plugin? plugin
