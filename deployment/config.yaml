@@ -4,6 +4,7 @@
     vm: 
       box: "superleap/centos-71-x64"
       box_url: "superleap/centos-71-x64"
+      box_version: ">= 0.2"
       hostname: "hetzner.development"
       memory: "512"
       cpus: "1"
@@ -34,10 +35,11 @@
           manifests_path: "deployment/puppet/manifest"
           manifest_file: "development.pp"
           module_path: "deployment/puppet/module"
-          environment: "production"
           environments_path: "deployment/environment"
+          environment: "development"
           options:
             - "--verbose"
+            - "--report"
       synced_folder:
         superleap-xyz: 
           source: "./development/superleap.xyz"
