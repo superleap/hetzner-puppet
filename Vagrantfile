@@ -1,5 +1,5 @@
 # -*- mode: ruby -*-
-Vagrant.require_version '>= 1.6.0'
+Vagrant.require_version '>= 1.8.0'
 require 'yaml'
 required_plugins = %w(
     vagrant-proxyconf
@@ -39,8 +39,9 @@ ssh_username = !data['ssh']['username'].nil? ? data['ssh']['username'] : 'vagran
 # Local box settings
 Vagrant.configure('2') do |config|
     # Configure box based on ${settings}
-    config.vm.box     = "#{data['vm']['box']}"
-    config.vm.box_url = "#{data['vm']['box_url']}"
+    config.vm.box           = "#{data['vm']['box']}"
+    config.vm.box_url       = "#{data['vm']['box_url']}"
+    config.vm.box_version   = "#{data['vm']['box_version']}"
 
     if data['vm']['hostname'].to_s.strip.length != 0
       config.vm.hostname = "#{data['vm']['hostname']}"
@@ -248,6 +249,7 @@ Vagrant.configure('2') do |config|
         puppet.module_path          = "#{data['vm']['provision']['puppet']['module_path']}"
         puppet.hiera_config_path    = "#{data['vm']['provision']['puppet']['hiera_config_path']}"
         puppet.working_directory    = "#{data['vm']['provision']['puppet']['working_directory']}"
+        puppet.environment          = "#{data['vm']['provision']['puppet']['environment']}"
         puppet.environment_path     = "#{data['vm']['provision']['puppet']['environment_path']}"
 
         if !data['vm']['provision']['puppet']['options'].empty?
