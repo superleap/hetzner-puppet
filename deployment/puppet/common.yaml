@@ -161,7 +161,7 @@ mongodb::globals:
   server_package_name: 'mongodb-org-server'
   mongos_package_name: 'mongodb-org-mongos'
   client_package_name: 'mongodb-org-shell'
-  version: '3.2.4-1.el7'
+  version: '3.2.6-1.el7'
 mongodb::server:
   ensure: 'present'
   auth: true
@@ -183,7 +183,7 @@ mysql::server:
 
 # NodeJS configuration
 nodejs::settings:
-  version: 'v5.9.1'
+  version: 'v6.0.0'
   target_dir: '/usr/bin'
   make_install: false
 nodejs::packages:
@@ -207,9 +207,9 @@ redis::settings:
   config_owner: 'root'
 
 # Go configuration
-golang::version: '1.6'
+golang::version: '1.6.2'
 golang::download_dir: '/usr/local/src'
-golang::download_url: 'https://storage.googleapis.com/golang/go1.6.linux-amd64.tar.gz'
+golang::download_url: 'https://storage.googleapis.com/golang/go1.6.2.linux-amd64.tar.gz'
 golang::base_dir: '/usr/local/go'
 
 # Erlang configuration
@@ -220,7 +220,7 @@ erlang::package: 'erlang'
 rabbitmq::port: '5672'
 
 # Docker configuration
-docker::version: '1.10.3'
+docker::version: '1.11.1'
 docker::docker_group: 'docker'
 docker::docker_group_default: 'docker'
 docker::docker_users:
