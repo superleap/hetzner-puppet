@@ -2,9 +2,9 @@
   vagrantfile: 
     target: "local"
     vm: 
-      box: "superleap/centos-71-x64"
-      box_url: "superleap/centos-71-x64"
-      box_version: ">= 0.2"
+      box: "superleap/centos-7-x64"
+      box_url: "superleap/centos-7-x64"
+      box_version: ">= 0.3"
       hostname: "hetzner.development"
       memory: "512"
       cpus: "1"
