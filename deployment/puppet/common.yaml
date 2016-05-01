@@ -187,11 +187,11 @@ nodejs::settings:
   target_dir: '/usr/bin'
   make_install: false
 nodejs::packages:
-  gulp-cli:
+  yo:
     ensure: "present"
     provider: "npm"
     require: "Class[nodejs]"
-  bower:
+  gulp-cli:
     ensure: "present"
     provider: "npm"
     require: "Class[nodejs]"
