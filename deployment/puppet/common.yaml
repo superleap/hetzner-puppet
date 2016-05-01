@@ -191,6 +191,10 @@ nodejs::packages:
     ensure: "present"
     provider: "npm"
     require: "Class[nodejs]"
+  generator-generator:
+    ensure: "present"
+    provider: "npm"
+    require: "Class[nodejs]"
   gulp-cli:
     ensure: "present"
     provider: "npm"
