@@ -187,6 +187,10 @@ nodejs::settings:
   target_dir: '/usr/bin'
   make_install: false
 nodejs::packages:
+  nsp:
+    ensure: "present"
+    provider: "npm"
+    require: "Class[nodejs]"
   yo:
     ensure: "present"
     provider: "npm"
